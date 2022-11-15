@@ -25,8 +25,10 @@ init -10 python:
             # How fast hue gets incremented.
             self.interval = float(interval / 360)
 
-            # Starting hue of the text.
-            self.hue = (self.MIN_HUE if start is None else float(start / 360))
+            # Starting hue of the text. Recorded for reset().
+            self.hue_starting = (self.MIN_HUE if start is None else float(start / 360))
+            # Actual hue of the text.
+            self.hue = self.hue_starting
 
             # Lightness and saturation of the colors.
             self.lightness = float(l / 100)
@@ -35,22 +37,28 @@ init -10 python:
             # Currently shown child.
             self.child = Null()
 
+            # Whether the color change has been paused.
+            self.paused = False 
+
         # Returns a render containing our Text displayable.
         def render(self, width, height, st, at):
 
             # Make sure this function runs again asap.
             renpy.redraw(self, 0)
 
-            # Set new hue. First add self.interval:
-            self.hue = self.hue + self.interval 
-            # Before looping it back in case it crossed the maximum.
-            self.hue = (self.hue if (self.hue <= self.MAX_HUE) else self.hue - self.MAX_HUE)
+            # Generate a new color and child, unless it's paused.
+            if self.paused is False:
 
-            # Generate a new color with current hue and defined lightness and saturation.
-            color = Color(hls = (self.hue, self.lightness, self.saturation))
+                # Set new hue. First add self.interval:
+                self.hue = self.hue + self.interval 
+                # Before looping it back in case it crossed the maximum.
+                self.hue = (self.hue if (self.hue <= self.MAX_HUE) else self.hue - self.MAX_HUE)
 
-            # New child.
-            self.child = Text(self.base_text, color = color)
+                # Generate a new color with current hue and defined lightness and saturation.
+                color = Color(hls = (self.hue, self.lightness, self.saturation))
+
+                # New child.
+                self.child = Text(self.base_text, color = color)
 
             # Child render, to get the size of this displayable.
             child_render = renpy.render(self.child, width, height, st, at)
@@ -70,3 +78,11 @@ init -10 python:
             return self.child.event(ev, x, y, st)
         def visit(self):
             return [ self.child ]
+
+        # Simple control methods.
+        def pause(self):
+            self.paused = True
+        def unpause(self):
+            self.paused = False
+        def reset(self):
+            self.hue = self.hue_starting
