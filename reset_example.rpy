@@ -62,4 +62,4 @@ screen rainbows_reset():
 
         null height 55
 
-        textbutton "Back to Example Selection" xalign 0.5 action Show("rainbows_pick") text_idle_color "fff"
+        textbutton "Back to Main Menu" xalign 0.5 action Return() text_idle_color "fff"
