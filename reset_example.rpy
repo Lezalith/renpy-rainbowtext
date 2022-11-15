@@ -26,14 +26,33 @@ screen rainbows_reset():
 
         null height 40
 
-        add rainbow_slow
-        add rainbow_basic
-        add rainbow_fast
-        add rainbow_fastest
+        vbox:
+
+            add rainbow_slow
+            add rainbow_basic
+
+            hbox:
+                spacing 20
+                add rainbow_fast
+                textbutton "Pause/Unpause":
+                    yalign 0.5
+                    action If(rainbow_fast.paused, false = Function(rainbow_fast.pause), true = Function(rainbow_fast.unpause))
+
+            hbox:
+                spacing 20
+                add rainbow_fastest
+                textbutton "Pause/Unpause":
+                    yalign 0.5
+                    action If(rainbow_fastest.paused, false = Function(rainbow_fastest.pause), true = Function(rainbow_fastest.unpause))
 
         null height 40
 
-        add rainbow_start
+        hbox:
+            spacing 20
+            add rainbow_start
+            textbutton "Reset to\nstarting hue":
+                yalign 0.5
+                action Function(rainbow_start.reset)
 
         null height 40
 
