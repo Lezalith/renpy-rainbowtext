@@ -13,7 +13,7 @@ image rainbow_desat = RainbowText("Rainbow text with lower saturation", s = 20.0
 image rainbow_light = RainbowText("Rainbow text with higher lightness.", l = 80.0)
 image rainbow_both = RainbowText("Rainbow text with both lower saturation and higher lightness.", s = 20.0, l = 80.0)
 
-screen rainbows():
+screen rainbows_basic():
 
     tag rainbowSCR
 

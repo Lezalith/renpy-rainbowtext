@@ -13,8 +13,8 @@ screen rainbows_pick():
 
         text "Both screens shown by buttons below display defined RainbowText displayables." color "fff"
 
-        textbutton "Show a regular (image statement) way.\nPreserves the states when the screen is closed." action Show("rainbows")
-        textbutton "Show an alternative (default statement) way.\nResets the states anytime the screen is entered." action Show("rainbows_reset")
+        textbutton "Show a regular (image statement) way.\nPreserves the states when the screen is closed." action Show("rainbows_basic")
+        textbutton "Show an alternative (default statement) way.\nResets the states anytime the screen is entered." action Show("rainbows")
 
 ###################################################################################################
 ### start label. ######################################### ########################################
