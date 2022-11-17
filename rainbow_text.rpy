@@ -49,10 +49,8 @@ init -10 python:
             # Generate a new color and child, unless it's paused.
             if self.paused is False:
 
-                # Set new hue. First add self.interval:
-                self.hue = self.hue + self.interval 
-                # Before looping it back in case it crossed the maximum.
-                self.hue = (self.hue if (self.hue <= self.MAX_HUE) else self.hue - self.MAX_HUE)
+                # Set new hue. Add self.interval and keep it below MAX_HUE
+                self.hue = (self.hue + self.interval) % self.MAX_HUE
 
                 # Generate a new color with current hue and defined lightness and saturation.
                 color = Color(hls = (self.hue, self.lightness, self.saturation))
